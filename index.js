@@ -16,19 +16,20 @@ try {
 }
 
 const downloadData = async () => {
-    // const path = 'fl_ngs/data.js'
-    download('https://www.ngs.noaa.gov/ngsjson/OpusSolutionsForMap.js').then(data => {
+    const path = 'fl_ngs/data.js'
+    return download('https://www.ngs.noaa.gov/ngsjson/OpusSolutionsForMap.js').then(data => {
         console.log(data);
         fs.writeFileSync('fl_ngs/data.js', data);
     });
+
 }
 
-// const appendExport = async (dataPath) => {
-//     fs.appendFile('/fl_ngs/data.js', 'module.exports = {opus}', function (err) {
-//         if (err) throw err;
-//         console.log('Saved!');
-//     });
-// }
+const appendExport = async (dataPath) => {
+    fs.appendFile('fl_ngs/data.js', '\nmodule.exports = { opus };', function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+    });
+}
 
 // const readData = async () => {
 //     fs.readFile('fl_ngs/data.js', (err, data) => {
@@ -51,7 +52,7 @@ const floridaPIDs = async (data) => {
 
 const setup = async () => {
     const dataFile = await downloadData();
-    // const addExport = await appendExport();
+    const addExport = await appendExport(dataFile);
     // const floridaPID = await floridaPIDs(testData);
     // const data = await readData();
 }
