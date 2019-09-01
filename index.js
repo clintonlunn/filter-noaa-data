@@ -1,10 +1,8 @@
-const csvtojson = require("csvtojson");
-const jsontocsv = require("json2csv").parse;
 const fs = require("fs");
+const download = require('download');
 const {
     testData
 } = require("./testData.js");
-
 
 
 // make insurance company directory
@@ -17,6 +15,30 @@ try {
     console.error(err)
 }
 
+const downloadData = async () => {
+    // const path = 'fl_ngs/data.js'
+    download('https://www.ngs.noaa.gov/ngsjson/OpusSolutionsForMap.js').then(data => {
+        console.log(data);
+        fs.writeFileSync('fl_ngs/data.js', data);
+    });
+}
+
+// const appendExport = async (dataPath) => {
+//     fs.appendFile('/fl_ngs/data.js', 'module.exports = {opus}', function (err) {
+//         if (err) throw err;
+//         console.log('Saved!');
+//     });
+// }
+
+// const readData = async () => {
+//     fs.readFile('fl_ngs/data.js', (err, data) => {
+//         console.log(data);
+
+//         if (err) throw err;
+//         console.log(data);
+//     });
+// }
+
 const floridaPIDs = async (data) => {
     const dataArr = data.features;
     const flNGS = await dataArr.filter(item => item.properties.state === "FLORIDA");
@@ -27,4 +49,11 @@ const floridaPIDs = async (data) => {
 
 }
 
-floridaPIDs(testData);
+const setup = async () => {
+    const dataFile = await downloadData();
+    // const addExport = await appendExport();
+    // const floridaPID = await floridaPIDs(testData);
+    // const data = await readData();
+}
+
+setup();
