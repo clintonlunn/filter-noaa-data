@@ -1,11 +1,10 @@
-## Parse CSV
-### CSV Parsing assignment
-Parse through a CSV file, separate into separate files by insurance, and return CSV with no repeat users ordered by last name, then first.
+## Download NOAA Opus Data
+Download the lated Opus data and subset to Florida only. 
 
 ## Install Instructions:
 ```
-git clone https://github.com/clintonlunn/parse-csv.git;
-cd parse-csv &&
+git clone https://github.com/clintonlunn/filter-noaa-data.git;
+cd filter-noaa-dta &&
 npm install &&
-node index.js;
+node download.js; node process.js
 ```
